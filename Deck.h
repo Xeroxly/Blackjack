@@ -3,11 +3,7 @@
 
 #include <iostream>
 #include <cstdlib>
-
-struct Card {
-    int number;
-    std::string suit;
-};
+#include "Card.h"
 
 class Deck {
   public: 
