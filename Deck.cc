@@ -12,17 +12,8 @@ Deck::Deck(){
             deck[i].suit= "Spades";
         }
 
-        if(i%13==0){
-            deck[i].number= "A";
-        } else if(i%13==10){
-            deck[i].number= "J";
-        } else if(i%13==11){
-            deck[i].number= "Q";
-        } else if(i%13==12){
-            deck[i].number= "K";
-        } else{
-            deck[i].number= std::to_string((i%13)+1);
-        }
+        deck[i].number= ((i%13)+1);
+        
     }
 }
 

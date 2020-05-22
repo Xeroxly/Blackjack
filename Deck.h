@@ -5,7 +5,7 @@
 #include <cstdlib>
 
 struct Card {
-    std::string number;
+    int number;
     std::string suit;
 };
 
