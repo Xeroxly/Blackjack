@@ -14,6 +14,8 @@ class Hand {
   private:
     std::vector<Card> hand;
     int count;
+    bool soft;
+    bool hasAce;
 };
 
 #endif // HAND_H

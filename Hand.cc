@@ -2,12 +2,14 @@
 #include "Hand.h"
 
 Hand::Hand(){
-    int count = 0;
+    count = 0;
+    hasAce= false;
+    soft= false;
 }
 
 Hand::Hand(Card card){
-    int count = 0;
-    hand.push_back(card);
+    count = 0;
+    addCard(card);
 }
 
 void Hand::showHand(){
@@ -31,7 +33,13 @@ void Hand::showHand(){
 void Hand::addCard(Card card){
     hand.push_back(card);
     if(card.number==1){
-        /* TODO handling of Aces */
+        if(hasAce){
+            count+=1;
+        } else{
+            count+=11;
+            soft= true;
+            hasAce== true;
+        }
     } else if(card.number>=10){
         count += 10;
     } else {
