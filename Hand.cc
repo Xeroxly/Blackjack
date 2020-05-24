@@ -23,7 +23,7 @@ void Hand::showHand(){
         } else if(hand[i].number==13){
             std::cout << "King";
         } else{
-            std::cout << i;
+            std::cout << hand[i].number;
         }
 
         std::cout << " of " << hand[i].suit << std::endl;
@@ -49,4 +49,40 @@ void Hand::addCard(Card card){
 
 int Hand::getCount(){
     return count;
+}
+
+int Hand::getLength(){
+    return hand.size();
+}
+
+bool Hand::checkSplit(){
+    return ((getLength()==2) && (hand[0].number==hand[1].number));
+}
+
+bool Hand::isSoft(){
+    return soft;
+}
+
+void Hand::makeHard(){
+    count-=10;
+    soft= false;
+}
+
+void Hand::dealerCard(){
+    if(hand[1].number==1){
+        std::cout << "Ace";
+    } else if(hand[1].number==11){
+        std::cout << "Jack";
+    } else if(hand[1].number==12){
+        std::cout << "Queen";
+    } else if(hand[1].number==13){
+        std::cout << "King";
+    } else{
+        std::cout << hand[1].number;
+    }
+    std::cout << " of " << hand[1].suit << std::endl;
+}
+
+Card Hand::getCard(int number){
+    return hand[number];
 }

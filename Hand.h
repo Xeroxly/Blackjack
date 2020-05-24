@@ -11,6 +11,12 @@ class Hand {
     void showHand();
     void addCard(Card card);
     int getCount();
+    int getLength();
+    bool checkSplit();
+    bool isSoft();
+    void makeHard();
+    void dealerCard();
+    Card getCard(int number);
   private:
     std::vector<Card> hand;
     int count;
