@@ -86,14 +86,15 @@ int Blackjack::playGame(Deck* deck, Hand hand, int* money, int bet){
 
         std::cout << "Dealer has:" << std::endl;
         dealer.showHand();
+        std::cout << std::endl;
 
-        std::cout << "Dealer's total is: " <<  dealer.getCount() << std::endl << std::endl;
+        std::cout << "Dealer's total is: " <<  dealer.getCount() << std::endl;
         std::cout <<  std::string( 100, '-' ) << std::endl << std::endl;
         while(dealer.getCount()<17){
             std::cout << "Dealer hit" << std::endl;
             dealer.addCard(deck->getTop());
             dealer.showHand();
-            std::cout << std::endl;
+            std::cout << std::endl << std::endl;
             std::cout << "Dealer's total is: " <<  dealer.getCount() << std::endl;
             std::cout <<  std::string( 100, '-' ) << std::endl << std::endl;
             if(dealer.isSoft() && dealer.getCount()==17){
