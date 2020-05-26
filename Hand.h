@@ -17,11 +17,14 @@ class Hand {
     void makeHard();
     void dealerCard();
     Card getCard(int number);
+    void doubleDown();
+    bool getDoubled();
   private:
     std::vector<Card> hand;
     int count;
     bool soft;
     bool hasAce;
+    bool doubled;
 };
 
 #endif // HAND_H

@@ -123,6 +123,7 @@ int Blackjack::playHand(Hand* hand, int* money, int* bet){
             std::cout << "You doubled down" << std::endl;
             std::cout << std::string( 100, '-' ) << std::endl;
             (*bet)*=2;
+            hand->doubleDown();
             hand->showHand();
             std::cout << "Your total is: " << hand->getCount() << std::endl << std::endl;
             if(hand->getCount()>21){
@@ -152,6 +153,10 @@ int Blackjack::playHand(Hand* hand, int* money, int* bet){
             } else if(result1==0){
                 pay(0, money, bet);
                 payed1= true;
+            }
+
+            if(split1.getDoubled()){
+                (*bet)/=2;
             } 
 
             int result2= playHand(&split2, money, bet);
@@ -163,47 +168,90 @@ int Blackjack::playHand(Hand* hand, int* money, int* bet){
                 payed2= true;
             }
 
+            if(split2.getDoubled()){
+                (*bet)/=2;
+            }
+
             int dealerResult= dealerHand(); 
             if(dealerResult==1){
                 if(!payed1){
-                    pay(1, money, bet);
+                    if(split1.getDoubled()){
+                        (*bet)*=2;
+                        pay(1, money, bet);
+                    } else{
+                        pay(1, money, bet);
+                    }
                     payed1= true;
                 }
                 if(!payed2){
-                    pay(1, money, bet);
+                    if(split2.getDoubled()){
+                        (*bet)*=2;
+                        pay(1, money, bet);
+                    } else{
+                        pay(1, money, bet);
+                    }
                     payed2= true;
                 }
             }
 
             if(result1>dealerResult || result2>dealerResult){
                 if(!payed1){
-                    pay(1, money, bet);
+                    if(split1.getDoubled()){
+                        (*bet)*=2;
+                        pay(1, money, bet);
+                    } else{
+                        pay(1, money, bet);
+                    }
                     payed1= true;
                 }
                 if(!payed2){
-                    pay(1, money, bet);
+                    if(split2.getDoubled()){
+                        (*bet)*=2;
+                        pay(1, money, bet);
+                    } else{
+                        pay(1, money, bet);
+                    }
                     payed2= true;
                 }
             } else if(result1<dealerResult || result2<dealerResult){
                 if(!payed1){
-                    pay(0, money, bet);
+                    if(split1.getDoubled()){
+                        (*bet)*=2;
+                        pay(0, money, bet);
+                    } else{
+                        pay(0, money, bet);
+                    }
                     payed1= true;
                 }
                 if(!payed2){
-                    pay(0, money, bet);
+                    if(split2.getDoubled()){
+                        (*bet)*=2;
+                        pay(0, money, bet);
+                    } else{
+                        pay(0, money, bet);
+                    }
                     payed2= true;
                 }
             } else{
                 if(!payed1){
-                    pay(3, money, bet);
+                    if(split1.getDoubled()){
+                        (*bet)*=2;
+                        pay(3, money, bet);
+                    } else{
+                        pay(3, money, bet);
+                    }
                     payed1= true;
                 }
                 if(!payed2){
-                    pay(3, money, bet);
+                    if(split2.getDoubled()){
+                        (*bet)*=2;
+                        pay(3, money, bet);
+                    } else{
+                        pay(3, money, bet);
+                    }
                     payed2= true;
                 }
             }
-
             return 100;
         } else if(action==5){
             insurance= true;
