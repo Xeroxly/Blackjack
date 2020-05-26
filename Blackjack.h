@@ -8,12 +8,15 @@
 class Blackjack {
   public: 
     Blackjack();
-    int playGame(Deck* deck, Hand hand, int* money, int bet);
-    void pay(int result, int* money, int bet);
+    Blackjack(Deck* deck, Hand* dealer);
+    int playGame(Hand* hand, int* money, int* bet);
+    void pay(int result, int* money, int* bet);
+    void deal(Hand* hand);
+    int playHand(Hand* hand, int* money, int* bet);
+    int dealerHand();
   private:
-    Hand hand;
-    Hand dealer;
-    int activeHands;
+    Deck* deck;
+    Hand* dealer;
 };
 
 #endif // BLACKJACK_H

@@ -6,13 +6,11 @@
 using namespace std;
 
 int main(){
-    Hand hand= Hand();
-    int bet, result;
+    int bet;
     int game = -1;
     int money= 500;
     bool atCasino= true;
     Deck deck= Deck();
-    Blackjack table= Blackjack();
     deck.Shuffle();
 
     while(atCasino){
@@ -27,9 +25,13 @@ int main(){
         cin >> game;
 
         if(game==1){
+            Hand hand, dealer;
+            Blackjack table= Blackjack(&deck, &dealer);
             cout << "\033[2J\033[1;1H" << "\033[2J\033[1;1H"; //clear the screen with ANSI escape codes
             while(1){
-                int bet;
+                hand= Hand();
+                dealer= Hand();
+
                 std::cout << "You have " << money << " Dollars" << std::endl;
                 std::cout << "Please enter your bet" << std::endl;
                 std::cout << "Enter -1 to leave table" << std::endl;
@@ -46,7 +48,7 @@ int main(){
                     std::cout << "\033[2J\033[1;1H << \033[2J\033[1;1H"; //clear the screen with ANSI escape codes
                     break;
                 }
-                table.pay(table.playGame(&deck, hand, &money, bet), &money, bet);
+                table.pay(table.playGame(&hand, &money, &bet), &money, &bet);
             }
         } else if(game==0){
             cout << "Come back with more money" << endl;
