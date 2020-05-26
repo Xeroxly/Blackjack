@@ -26,7 +26,7 @@ int main(){
 
         if(game==1){
             Hand hand, dealer;
-            Blackjack table= Blackjack(&deck, &hand, &dealer);
+            Blackjack table= Blackjack(&deck, &dealer);
             cout << "\033[2J\033[1;1H" << "\033[2J\033[1;1H"; //clear the screen with ANSI escape codes
             while(1){
                 hand= Hand();
@@ -48,7 +48,7 @@ int main(){
                     std::cout << "\033[2J\033[1;1H << \033[2J\033[1;1H"; //clear the screen with ANSI escape codes
                     break;
                 }
-                table.pay(table.playGame(&money, &bet), &money, &bet);
+                table.pay(table.playGame(&hand, &money, &bet), &money, &bet);
             }
         } else if(game==0){
             cout << "Come back with more money" << endl;

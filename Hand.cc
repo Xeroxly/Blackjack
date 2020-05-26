@@ -9,6 +9,8 @@ Hand::Hand(){
 
 Hand::Hand(Card card){
     count = 0;
+    hasAce= false;
+    soft= false;
     addCard(card);
 }
 

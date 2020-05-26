@@ -2,20 +2,17 @@
 
 Blackjack::Blackjack(){
     *deck= Deck();
-    *hand= Hand();
     *dealer= Hand();
 }
 
-Blackjack::Blackjack(Deck* deck_, Hand* hand_, Hand* dealer_){
+Blackjack::Blackjack(Deck* deck_, Hand* dealer_){
     deck= deck_;
-    hand= hand_;
     dealer= dealer_;
 }
 
-int Blackjack::playGame(int* money, int* bet){
-    deal();
-    std::cout << "dealt" << std::endl;
-    int handResult= playHand(money, bet);
+int Blackjack::playGame(Hand* hand, int* money, int* bet){
+    deal(hand);
+    int handResult= playHand(hand, money, bet);
     int dealerResult;
     if(handResult==2){
         return 2;
@@ -55,9 +52,9 @@ void Blackjack::pay(int result, int* money, int* bet){
     }
 }
 
-void Blackjack::deal(){
-    std::cout << "Welcome to Blackjack" << std::endl; // Split seg fault occurs in deal after a split
-    std::cout << std::string( 100, '-' ) << std::endl; // additional issues with soft aces on ace, ace split (unknown)
+void Blackjack::deal(Hand* hand){
+    std::cout << "Welcome to Blackjack" << std::endl;
+    std::cout << std::string( 100, '-' ) << std::endl;
 
     if(hand->getLength()){
         dealer->addCard(deck->getTop());
@@ -69,7 +66,7 @@ void Blackjack::deal(){
     dealer->addCard(deck->getTop());
 }
 
-int Blackjack::playHand(int* money, int* bet){
+int Blackjack::playHand(Hand* hand, int* money, int* bet){
     int action= -1;
     bool insurance= false;
     while(1){
@@ -127,7 +124,7 @@ int Blackjack::playHand(int* money, int* bet){
             std::cout << std::string( 100, '-' ) << std::endl;
             (*bet)*=2;
             hand->showHand();
-            std::cout << "Your total is: " << hand->getCount() << std::endl;
+            std::cout << "Your total is: " << hand->getCount() << std::endl << std::endl;
             if(hand->getCount()>21){
                 if(hand->isSoft()){
                     hand->makeHard();
@@ -148,8 +145,7 @@ int Blackjack::playHand(int* money, int* bet){
             bool payed1= false;
             bool payed2= false;
 
-            setHand(&split1);
-            int result1= playHand(money, bet);
+            int result1= playHand(&split1, money, bet);
             if(result1==2){
                 pay(2, money, bet);
                 payed1= true;
@@ -158,8 +154,7 @@ int Blackjack::playHand(int* money, int* bet){
                 payed1= true;
             } 
 
-            setHand(&split2);
-            int result2= playHand(money, bet);
+            int result2= playHand(&split2, money, bet);
             if(result2==2){
                 pay(2, money, bet);
                 payed2= true;
@@ -257,8 +252,4 @@ int Blackjack::dealerHand(){
     std::cout << "Dealer stayed" << std::endl;
     std::cout << std::string( 100, '-' ) << std::endl;
     return dealer->getCount();
-}
-
-void Blackjack::setHand(Hand* hand_){
-    hand= hand_;
 }
