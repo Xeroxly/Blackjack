@@ -119,22 +119,26 @@ int Blackjack::playHand(Hand* hand, int* money, int* bet){
             std::cout << std::string( 100, '-' ) << std::endl;
             return hand->getCount();
         } else if(action==3){
-            hand->addCard(deck->getTop());
-            std::cout << "You doubled down" << std::endl;
-            std::cout << std::string( 100, '-' ) << std::endl;
-            (*bet)*=2;
-            hand->doubleDown();
-            hand->showHand();
-            std::cout << "Your total is: " << hand->getCount() << std::endl << std::endl;
-            if(hand->getCount()>21){
-                if(hand->isSoft()){
-                    hand->makeHard();
-                    return hand->getCount();
-                } else{
-                    return 0;
-                }
+            if(*bet>(*bet-*money)){
+                std::cout << "You dont have enough money for that!" << std::endl;
             } else{
-                return hand->getCount();
+                hand->addCard(deck->getTop());
+                std::cout << "You doubled down" << std::endl;
+                std::cout << std::string( 100, '-' ) << std::endl;
+                (*bet)*=2;
+                hand->doubleDown();
+                hand->showHand();
+                std::cout << "Your total is: " << hand->getCount() << std::endl << std::endl;
+                if(hand->getCount()>21){
+                    if(hand->isSoft()){
+                        hand->makeHard();
+                        return hand->getCount();
+                    } else{
+                        return 0;
+                    }
+                } else{
+                    return hand->getCount();
+                }
             }
         } else if(action==4){
             std::cout << "You Split" << std::endl;
