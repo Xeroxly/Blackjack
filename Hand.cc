@@ -5,12 +5,14 @@ Hand::Hand(){
     count = 0;
     hasAce= false;
     soft= false;
+    doubled= true;
 }
 
 Hand::Hand(Card card){
     count = 0;
     hasAce= false;
     soft= false;
+    doubled= true;
     addCard(card);
 }
 
@@ -37,6 +39,7 @@ void Hand::addCard(Card card){
     if(card.number==1){
         if(hasAce){
             count+=1;
+            soft= false;
         } else{
             count+=11;
             soft= true;
@@ -87,4 +90,12 @@ void Hand::dealerCard(){
 
 Card Hand::getCard(int number){
     return hand[number];
+}
+
+void Hand::doubleDown(){
+    doubled= true;
+}
+
+bool Hand::getDoubled(){
+    return doubled;
 }
