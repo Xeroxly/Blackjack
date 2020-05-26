@@ -1,4 +1,4 @@
-#include "deck.h"
+#include "Deck.h"
 
 Deck::Deck(){
     for(int i=0; i<52; i++){
@@ -12,18 +12,10 @@ Deck::Deck(){
             deck[i].suit= "Spades";
         }
 
-        if(i%13==0){
-            deck[i].number= "A";
-        } else if(i%13==10){
-            deck[i].number= "J";
-        } else if(i%13==11){
-            deck[i].number= "Q";
-        } else if(i%13==12){
-            deck[i].number= "K";
-        } else{
-            deck[i].number= std::to_string((i%13)+1);
-        }
+        deck[i].number= ((i%13)+1);
+        
     }
+    position= 0;
 }
 
 void Deck::ShowDeck(){
@@ -37,6 +29,8 @@ void Deck::Shuffle(){
     int rand1, rand2;
     srand (time(NULL));
 
+    std::cout << std::endl << "SHUFFLING" << std::endl << std::endl;
+
     for(int i=0; i<200; i++){
         rand1= rand()%52;
         rand2= rand()%52;
@@ -44,4 +38,15 @@ void Deck::Shuffle(){
         deck[rand1]= deck[rand2];
         deck[rand2]= temp;
     }
+
+    position= 0;
+}
+
+Card Deck::getTop(){
+    Card temp= deck[position];
+    position++;
+    if(position==51){
+        Shuffle();
+    }
+    return temp;
 }
