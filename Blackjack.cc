@@ -119,7 +119,7 @@ int Blackjack::playHand(Hand* hand, int* money, int* bet){
             std::cout << std::string( 100, '-' ) << std::endl;
             return hand->getCount();
         } else if(action==3){
-            if(*bet>(*bet-*money)){
+            if(*bet>(*money-*bet)){
                 std::cout << "You dont have enough money for that!" << std::endl;
             } else{
                 hand->addCard(deck->getTop());
